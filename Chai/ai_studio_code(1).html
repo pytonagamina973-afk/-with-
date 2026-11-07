@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>পড়াশোনা with চায়ে চুমুক • ঢাকা টং এডিশন</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-midnight: #0a060e;
+      --amber-warm: #ff9d3b;
+      --amber-bright: #ffba59;
+      --wood-dark: #1f1109;
+      --wood-mid: #462512;
+      --wood-top: #733c1d;
+      --wood-highlight: #9a542b;
+      --card-bg: rgba(18, 9, 23, 0.82);
+      --border-warm: rgba(255, 157, 59, 0.35);
+      --bench-height: 48px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-midnight);
+      color: #fff4e6;
+      font-family: 'Hind Siliguri', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    input, select, button, textarea {
+      font-family: inherit;
+      user-select: auto;
+    }
+
+    /* --- TOP HEADER NAVIGATION --- */
+    header {
+      background: linear-gradient(180deg, rgba(14, 7, 18, 0.94), rgba(20, 9, 26, 0.88));
+      border-bottom: 1.5px solid var(--border-warm);
+      padding: 9px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 25px rgba(0,0,0,0.7);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      font-size: 30px;
+      line-height: 1;
+      filter: drop-shadow(0 0 10px rgba(255, 157, 59, 0.7));
+      animation: gentleFloat 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes gentleFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-3px) rotate(3deg); }
+    }
+
+    .brand-text h1 {
+      font-size: clamp(16px, 2.4vw, 21px);
+      font-weight: 800;
+      background: linear-gradient(90deg, #ffe08a 0%, #ff9d3b 60%, #ff6f26 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: clamp(10.5px, 1.8vw, 12px);
+      color: #d8bed2;
+      display: block;
+      font-weight: 500;
+    }
+
+    .stats-and-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-counter {
+      background: rgba(30, 14, 36, 0.85);
+      border: 1px solid var(--border-warm);
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffdca8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+    }
+
+    .badge-counter strong {
+      color: var(--amber-bright);
+      font-size: 15px;
+    }
+
+    .nav-btn {
+      background: rgba(38, 17, 46, 0.85);
+      border: 1px solid var(--border-warm);
+      color: #ffe6cf;
+      padding: 5px 11px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 36px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background: rgba(65, 28, 76, 0.95);
+      border-color: var(--amber-warm);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(180deg, #ff9436, #c55716);
+      color: #fff;
+      border-color: #ffb570;
+      box-shadow: 0 0 12px rgba(255, 148, 54, 0.45);
+    }
+
+    .nav-btn-danger {
+      background: rgba(65, 18, 26, 0.85);
+      border-color: #a8323e;
+      color: #ffccd0;
+    }
+    .nav-btn-danger:hover {
+      background: rgba(95, 23, 35, 0.95);
+      border-color: #e04151;
+    }
+
+    /* --- FOLK AUDIO PLAYER BAR --- */
+    .folk-station-bar {
+      background: linear-gradient(90deg, rgba(24, 10, 24, 0.92), rgba(36, 15, 33, 0.92));
+      border-bottom: 1px solid rgba(255, 157, 59, 0.2);
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12.5px;
+      z-index: 90;
+      backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+    }
+
+    .folk-track-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffddb3;
+      font-weight: 600;
+      flex: 1 1 auto;
+      min-width: 220px;
+    }
+
+    .folk-station-tag {
+      background: var(--amber-warm);
+      color: #2b1100;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .folk-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex: 0 0 auto;
+    }
+
+    .folk-select {
+      background: #140718;
+      border: 1px solid #753b64;
+      color: #ffdca8;
+      padding: 5px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+      max-width: 210px;
+    }
+
+    .folk-play-toggle {
+      background: linear-gradient(180deg, #ff8f33, #bc4d0c);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+
+    .folk-play-toggle.playing {
+      background: linear-gradient(180deg, #27ae60, #186a3b);
+      box-shadow: 0 0 10px rgba(39, 174, 96, 0.4);
+    }
+
+    .folk-volume {
+      width: 55px;
+      height: 4px;
+      accent-color: var(--amber-warm);
+      cursor: pointer;
+    }
+
+    /* --- THE DHAKA TONG ARTWORK STAGE --- */
+    .stage-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      min-height: 540px;
+      /* The anime/lo-fi Dhaka Tea Stall illustration background */
+      background-color: #0b0710;
+      background-image: 
+        linear-gradient(180deg, rgba(11, 7, 16, 0.35) 0%, rgba(11, 7, 16, 0.15) 40%, rgba(11, 7, 16, 0.75) 100%),
+        url('dhaka-tong.jpg');
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      background-size: cover;
+      transition: background-image 0.4s ease;
+    }
+
+    /* Ambient Warm Street Lamp & Tea Stall Glow Overlay */
+    .stall-warm-ambient {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 170, 70, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Animated Monsoon Rain Layer */
+    .rain-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      background: repeating-linear-gradient(105deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 1.5px, transparent 1.5px, transparent 32px);
+      background-size: 100px 100px;
+      animation: rainFall 0.38s linear infinite;
+    }
+
+    .rain-layer.active {
+      opacity: 0.85;
+    }
+
+    @keyframes rainFall {
+      0% { background-position: 0 0; }
+      100% { background-position: -20px 100px; }
+    }
+
+    /* --- TASK CREATOR CONSOLE --- */
+    .task-creator-area {
+      position: relative;
+      z-index: 20;
+      padding: 20px 16px 8px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .task-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-warm);
+      backdrop-filter: blur(14px);
+      padding: 10px 14px;
+      border-radius: 16px;
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.7), 0 0 18px rgba(255, 157, 59, 0.12);
+      max-width: 940px;
+      width: 100%;
+      flex-wrap: wrap;
+      transition: border-color 0.2s;
+    }
+
+    .task-card:focus-within {
+      border-color: var(--amber-warm);
+    }
+
+    .task-input {
+      flex: 1 1 240px;
+      background: rgba(12, 6, 16, 0.95);
+      border: 1.5px solid #54274e;
+      padding: 10px 15px;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 9px;
+      outline: none;
+      transition: all 0.2s;
+      min-height: 42px;
+    }
+
+    .task-input:focus {
+      border-color: var(--amber-warm);
+      box-shadow: 0 0 10px rgba(255, 157, 59, 0.35);
+    }
+
+    .task-input::placeholder {
+      color: #a5869e;
+    }
+
+    .task-select {
+      background: rgba(12, 6, 16, 0.95);
+      border: 1.5px solid #54274e;
+      padding: 9px 12px;
+      color: #ffd8a8;
+      font-size: 13.5px;
+      border-radius: 9px;
+      outline: none;
+      cursor: pointer;
+      min-height: 42px;
+      flex: 0 1 auto;
+    }
+
+    .task-select:focus {
+      border-color: var(--amber-warm);
+    }
+
+    .btn-brew {
+      background: linear-gradient(180deg, #ff9436 0%, #cc5110 100%);
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14.5px;
+      padding: 10px 20px;
+      border-radius: 9px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      white-space: nowrap;
+      min-height: 42px;
+      box-shadow: 0 4px 16px rgba(204, 81, 16, 0.5);
+      transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn-brew:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+    }
+
+    .btn-brew:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* --- THE TEA BENCH AREA --- */
+    .bench-area {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 14px 0 24px;
+      margin-top: auto;
+    }
+
+    .empty-bench-banner {
+      color: #ffe8cf;
+      background: rgba(22, 10, 26, 0.88);
+      border: 1.5px dashed rgba(255, 157, 59, 0.45);
+      padding: 11px 22px;
+      border-radius: 28px;
+      backdrop-filter: blur(8px);
+      font-size: clamp(13px, 2.2vw, 15.5px);
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      max-width: 90%;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    /* Scrollable Container */
+    .bench-shelf-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .cups-rack {
+      display: flex;
+      gap: clamp(18px, 4vw, 36px);
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      padding: 12px 26px 0;
+      margin-bottom: -6px;
+      z-index: 15;
+      overflow-x: auto;
+      overflow-y: visible;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 157, 59, 0.5) transparent;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+    }
+
+    .cups-rack::-webkit-scrollbar {
+      height: 6px;
+    }
+    .cups-rack::-webkit-scrollbar-thumb {
+      background: rgba(255, 157, 59, 0.5);
+      border-radius: 10px;
+    }
+
+    /* Wooden Counter blending directly onto the shop table */
+    .wooden-bench-plank {
+      position: relative;
+      width: 94%;
+      max-width: 1200px;
+      height: var(--bench-height);
+      background: linear-gradient(180deg, var(--wood-highlight) 0%, var(--wood-top) 20%, var(--wood-mid) 60%, var(--wood-dark) 100%);
+      border-radius: 7px;
+      border-top: 3px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 3px solid #0f0502;
+      box-shadow:
+        0 18px 36px rgba(0,0,0,0.92),
+        inset 0 4px 8px rgba(255, 255, 255, 0.18),
+        inset 0 -6px 12px rgba(0,0,0,0.7);
+    }
+
+    .wooden-bench-plank::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(90deg,
+          transparent 0px, transparent 180px,
+          rgba(0,0,0,0.3) 180px, rgba(0,0,0,0.3) 182px);
+      pointer-events: none;
+    }
+
+    .bench-reflections {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255, 175, 75, 0.3) 0%, transparent 75%);
+      pointer-events: none;
+    }
+
+    .bench-legs-wrap {
+      position: absolute;
+      width: 82%;
+      max-width: 1020px;
+      display: flex;
+      justify-content: space-between;
+      bottom: -16px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .bench-leg {
+      width: clamp(26px, 4vw, 36px);
+      height: 38px;
+      background: linear-gradient(90deg, #180c07 0%, #2e160e 50%, #150905 100%);
+      border-left: 2px solid #3d1f14;
+      border-right: 2px solid #0d0503;
+      box-shadow: 6px 6px 14px rgba(0,0,0,0.8);
+    }
+
+    /* --- CUP COMPONENT --- */
+    .cup-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      scroll-snap-align: center;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-bottom: 2px;
+      padding-top: 10px;
+    }
+
+    .cup-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .task-tea-tag {
+      background: #fff6e8;
+      color: #271203;
+      padding: 8px 12px 7px;
+      border-radius: 10px;
+      font-size: clamp(12px, 2.3vw, 13px);
+      font-weight: 700;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6), 0 0 0 1px rgba(184, 115, 51, 0.3);
+      margin-bottom: 11px;
+      max-width: 175px;
+      min-width: 125px;
+      text-align: center;
+      border-top: 4px solid var(--amber-warm);
+      position: relative;
+      pointer-events: auto;
+      word-break: break-word;
+      line-height: 1.25;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .task-tea-tag::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 8px;
+      background: #caa078;
+    }
+
+    .task-timer-countdown {
+      font-size: 11px;
+      color: #9c3f0b;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .task-timer-countdown.ticking {
+      color: #d11e1e;
+      animation: pulseTimer 1s infinite alternate;
+    }
+
+    @keyframes pulseTimer {
+      0% { opacity: 0.8; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1.04); }
+    }
+
+    .tag-delete-btn {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #d32f2f;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transition: transform 0.15s, background 0.15s;
+    }
+    .tag-delete-btn:hover {
+      transform: scale(1.2);
+      background: #f44336;
+    }
+
+    /* Cutting Glass */
+    .cutting-chai-glass {
+      position: relative;
+      width: clamp(54px, 9.5vw, 62px);
+      height: clamp(74px, 13vw, 84px);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.12) 100%);
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      border-top: 3.5px solid rgba(255, 255, 255, 0.9);
+      border-radius: 2px 2px 14px 14px;
+      box-shadow:
+        inset 0 0 14px rgba(255,255,255,0.35),
+        0 10px 22px rgba(0,0,0,0.8);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+
+    .cutting-chai-glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg,
+        transparent 0px, transparent 7px,
+        rgba(255,255,255,0.25) 7px, rgba(255,255,255,0.25) 10px);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .cutting-chai-glass::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    /* Clay Cup (মাটির ভাঁড়) */
+    .matir-bhar-cup {
+      position: relative;
+      width: clamp(58px, 10vw, 68px);
+      height: clamp(68px, 12vw, 78px);
+      background: linear-gradient(135deg, #d3693f 0%, #a2421c 50%, #772b0c 100%);
+      border-radius: 6px 6px 26px 26px;
+      border: 2px solid #5a2009;
+      box-shadow:
+        inset -6px 0 12px rgba(0,0,0,0.5),
+        inset 6px 0 10px rgba(255, 200, 160, 0.35),
+        0 10px 20px rgba(0,0,0,0.75);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+
+    .matir-bhar-cup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -2px;
+      right: -2px;
+      height: 7px;
+      background: #8b3414;
+      border-radius: 6px;
+      border-bottom: 1.5px solid rgba(0,0,0,0.3);
+      z-index: 5;
+    }
+
+    /* Liquid Tea */
+    .tea-fluid {
+      width: 100%;
+      height: 74%;
+      background: linear-gradient(180deg, #ff9f42 0%, #b25816 70%, #7d3506 100%);
+      position: relative;
+      transition: height 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 4px 8px rgba(255, 230, 180, 0.4);
+    }
+
+    .matir-bhar-cup .tea-fluid {
+      background: linear-gradient(180deg, #df893a 0%, #aa4b13 70%, #6e2a05 100%);
+      height: 70%;
+    }
+
+    .tea-froth {
+      position: absolute;
+      top: -3px;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: radial-gradient(ellipse at 50% 50%, #fff1d4 0%, #f7cf99 60%, #e2a563 100%);
+      border-radius: 50%;
+    }
+
+    /* Rising Hot Steam */
+    .steam-container {
+      position: absolute;
+      top: 14px;
+      width: 32px;
+      height: 44px;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      z-index: 8;
+    }
+
+    .steam-puff {
+      width: 3.5px;
+      height: 25px;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 8px;
+      filter: blur(2px);
+      animation: steamRising 2.4s infinite ease-out;
+    }
+    .steam-puff:nth-child(2) { animation-delay: 0.7s; height: 30px; }
+    .steam-puff:nth-child(3) { animation-delay: 1.3s; height: 22px; }
+
+    @keyframes steamRising {
+      0% { transform: translateY(8px) scaleY(0.5); opacity: 0; }
+      40% { opacity: 0.75; }
+      100% { transform: translateY(-30px) scaleY(1.4) scaleX(1.7); opacity: 0; }
+    }
+
+    .cup-action-triggers {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .cup-action-btn {
+      background: rgba(18, 8, 22, 0.92);
+      border: 1px solid rgba(255, 157, 59, 0.4);
+      color: #ffdcb5;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .cup-action-btn:hover {
+      background: var(--amber-warm);
+      color: #1a0a02;
+    }
+
+    .cup-card.drinking .tea-fluid {
+      height: 0% !important;
+    }
+    .cup-card.drinking .steam-container {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cup-card.popping {
+      animation: cupFinishAnim 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes cupFinishAnim {
+      0% { transform: scale(1); opacity: 1; }
+      40% { transform: scale(1.25) translateY(-18px) rotate(-6deg); }
+      100% { transform: scale(0) translateY(-60px); opacity: 0; }
+    }
+
+    .cup-card.discarding {
+      animation: cupDiscardAnim 0.25s ease-out forwards;
+    }
+
+    @keyframes cupDiscardAnim {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0.6) translateY(40px); opacity: 0; }
+    }
+
+    .chai-splash-particle {
+      position: fixed;
+      width: 7px;
+      height: 7px;
+      background: radial-gradient(circle, #ffb049 0%, #c95914 100%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 0 6px rgba(255, 157, 59, 0.8);
+    }
+
+    /* --- DHAKA TONG MAMA DIALOG MODAL --- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 4, 15, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mama-dialog-box {
+      background: linear-gradient(135deg, #2b1129 0%, #461726 100%);
+      border: 2.5px solid var(--amber-warm);
+      box-shadow: 0 0 50px rgba(255, 157, 59, 0.45), inset 0 0 20px rgba(255, 157, 59, 0.15);
+      border-radius: 22px;
+      padding: clamp(22px, 5vw, 36px);
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .mama-dialog-box {
+      transform: scale(1) translateY(0);
+    }
+
+    .mama-avatar-circle {
+      width: 86px;
+      height: 86px;
+      background: #ffe6cf;
+      border: 3.5px solid var(--amber-warm);
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 46px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    .mama-tagline {
+      background: var(--amber-warm);
+      color: #270f03;
+      font-weight: 800;
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .mama-speech {
+      font-size: clamp(20px, 4.5vw, 25px);
+      font-weight: 800;
+      color: #fff2e0;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .mama-description {
+      color: #e5bdc8;
+      font-size: 14.5px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .btn-new-round {
+      background: linear-gradient(180deg, #ff9436 0%, #c95213 100%);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 13px 26px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(201, 82, 19, 0.5);
+      transition: all 0.2s;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    /* --- RESPONSIVE MEDIA QUERIES --- */
+    @media (max-width: 900px) {
+      .folk-station-bar {
+        justify-content: center;
+      }
+      .folk-track-info {
+        justify-content: center;
+        flex: 1 1 100%;
+      }
+      .folk-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .folk-select {
+        flex: 1 1 auto;
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 8px 12px;
+      }
+      .brand-wrap {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .stats-and-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .task-creator-area {
+        padding: 14px 12px 6px;
+      }
+      .task-card {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        gap: 8px;
+      }
+      .task-input, .task-select, .btn-brew {
+        width: 100%;
+        flex: none;
+      }
+      .cups-rack {
+        justify-content: flex-start;
+        padding: 15px 16px 0;
+      }
+      .wooden-bench-plank {
+        width: 98%;
+        height: 42px;
+      }
+      .bench-leg {
+        height: 30px;
+        bottom: -10px;
+      }
+      .folk-volume {
+        display: none;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .brand-text h1 {
+        font-size: 15.5px;
+      }
+      .badge-counter, .nav-btn {
+        padding: 4px 8px;
+        font-size: 11.5px;
+        height: 33px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Counters -->
+  <header>
+    <div class="brand-wrap">
+      <span class="brand-icon" aria-hidden="true">☕</span>
+      <div class="brand-text">
+        <h1>পড়াশোনা with চায়ে চুমুক</h1>
+        <span>ঢাকার রাস্তার টংয়ের মেজাজে পড়া হোক জমজমাট!</span>
+      </div>
+    </div>
+
+    <div class="stats-and-controls">
+      <div class="badge-counter" title="আজকের বাকি থাকা পড়ার কাপ">
+        <span>কাপ বাকি:</span>
+        <strong id="remainingBadge">০</strong>
+      </div>
+
+      <div class="badge-counter" title="আজকে পড়া শেষ করা কাপ">
+        <span>আজকের চুমুক:</span>
+        <strong id="finishedBadge" style="color: #63e6be;">০</strong>
+      </div>
+
+      <button class="nav-btn" id="changeBgBtn" title="ব্যাকগ্রাউন্ড ছবি নির্বাচন করুন">
+        🖼️ ব্যাকগ্রাউন্ড
+      </button>
+
+      <button class="nav-btn" id="rainAmbienceBtn" title="টিনের চালে বৃষ্টি ও চা এর আওয়াজ চালু করুন">
+        🌧️ বৃষ্টি
+      </button>
+
+      <button class="nav-btn" id="soundToggleBtn" title="শব্দ অন/অফ করুন">
+        🔊 সাউন্ড
+      </button>
+
+      <button class="nav-btn nav-btn-danger" id="clearBenchBtn" title="সব কাপ মুছে ফেলুন">
+        🗑️ খালি করুন
+      </button>
+
+      <input type="file" id="bgFileInput" accept="image/*" style="display:none;" />
+    </div>
+  </header>
+
+  <!-- Bengali Folk Radio Player Bar -->
+  <div class="folk-station-bar">
+    <div class="folk-track-info">
+      <span class="folk-station-tag">📻 টং রেডিও</span>
+      <span id="currentTrackTitle">🪕 লোকগান বাউল ও ভাটিয়ালী সুর</span>
+    </div>
+
+    <div class="folk-controls">
+      <button class="folk-play-toggle" id="folkPlayBtn" aria-label="গান চালান">
+        ▶ চালান
+      </button>
+      <button class="nav-btn" id="folkNextBtn" title="পরের গান" style="height:32px; padding: 4px 10px;">
+        ⏭
+      </button>
+      
+      <select id="folkTrackSelect" class="folk-select" aria-label="গান বেছে নিন">
+        <option value="0">🪕 সোহাগ চাঁদ বদনী ধনি</option>
+        <option value="1">⛵ নাইয়ারে সুজন নাইয়া (ভাটিয়ালী)</option>
+        <option value="2">🕊️ আমার সোনার ময়না পাখি</option>
+        <option value="3">🪔 অন্তরে বৈরাগীর লাউ বাজে</option>
+        <option value="4">🌊 ও মোর নদীরে মোর তিস্তা</option>
+        <option value="custom">📁 নিজের পছন্দের গান (MP3)</option>
+      </select>
+
+      <input type="range" id="folkVolume" min="0" max="1" step="0.05" value="0.5" title="ভলিউম" class="folk-volume">
+      <input type="file" id="localTrackInput" accept="audio/*" style="display:none" />
+    </div>
+  </div>
+
+  <audio id="folkAudioEngine" preload="metadata"></audio>
+
+  <!-- Dhaka Tea Stall Viewport with Anime Background -->
+  <main class="stage-wrapper" id="stageWrapper">
+    <div class="stall-warm-ambient"></div>
+    <div class="rain-layer" id="rainLayer"></div>
+
+    <!-- Task Creator Console -->
+    <div class="task-creator-area">
+      <div class="task-card">
+        <input type="text" id="taskNameInput" class="task-input" placeholder="কী পড়ার আছে মামা? (যেমন: বিসিএস আন্তর্জাতিক বিষয়াবলী...)" autocomplete="off" />
+
+        <select id="taskDurationSelect" class="task-select">
+          <option value="15">১৫ মিনিট (এক চুমুক)</option>
+          <option value="25" selected>২৫ মিনিট (কাটিং কাপ)</option>
+          <option value="45">৪৫ মিনিট (মাটির ভাঁড়)</option>
+          <option value="60">৬০ মিনিট (স্পেশাল মালাই চা)</option>
+        </select>
+
+        <select id="cupStyleSelect" class="task-select">
+          <option value="glass">কাচের কাটিং গ্লাস ☕</option>
+          <option value="clay">মাটির ভাঁড় 🪔</option>
+        </select>
+
+        <button class="btn-brew" id="brewCupBtn">
+          <span>চা ঢালুন মামা</span> ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- Roadside Bench placed directly above the stall counter -->
+    <div class="bench-area">
+      <div id="emptyBanner" class="empty-bench-banner">
+        <span>🏪 টংয়ের বেঞ্চ ফাঁকা মামা! পড়ার টপিক লিখে চা বসিয়ে দিন!</span>
+      </div>
+
+      <div class="bench-shelf-container">
+        <!-- Cups Rack -->
+        <div class="cups-rack" id="cupsRack"></div>
+
+        <!-- Wooden Bench Plank -->
+        <div class="wooden-bench-plank">
+          <div class="bench-reflections"></div>
+        </div>
+        <div class="bench-legs-wrap">
+          <div class="bench-leg"></div>
+          <div class="bench-leg"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mama Dialogue Modal -->
+  <div class="modal-overlay" id="mamaModal" role="dialog" aria-modal="true">
+    <div class="mama-dialog-box">
+      <div class="mama-avatar-circle">👨🏽‍🍳</div>
+      <div class="mama-tagline">টংয়ের মামা বলছেন:</div>
+      <div class="mama-speech" id="mamaSpeechText">"অস্থির মামা অস্থির!"</div>
+      <div class="mama-description">
+        আজকের সব কাপ চা শেষ! পড়াশোনায় তো তুমি এক্কেরে আগুন ঝরায়ে দিলা মামা!
+      </div>
+      <button class="btn-new-round" id="newRoundBtn">নতুন চায়ের রাউন্ড শুরু 🔄</button>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       1. BACKGROUND IMAGE HANDLER & LOCAL PERSISTENCE
+    ======================================================== */
+    const stageWrapper = document.getElementById('stageWrapper');
+    const changeBgBtn = document.getElementById('changeBgBtn');
+    const bgFileInput = document.getElementById('bgFileInput');
+
+    changeBgBtn.addEventListener('click', () => {
+      bgFileInput.click();
+    });
+
+    bgFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const dataUrl = event.target.result;
+          stageWrapper.style.backgroundImage = `linear-gradient(180deg, rgba(11, 7, 16, 0.35) 0%, rgba(11, 7, 16, 0.15) 40%, rgba(11, 7, 16, 0.75) 100%), url('${dataUrl}')`;
+          try {
+            localStorage.setItem('dhaka_tong_custom_bg', dataUrl);
+          } catch (err) {
+            console.log("Image exceeds localStorage capacity:", err);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Check if user previously uploaded a custom background
+    const savedCustomBg = localStorage.getItem('dhaka_tong_custom_bg');
+    if (savedCustomBg) {
+      stageWrapper.style.backgroundImage = `linear-gradient(180deg, rgba(11, 7, 16, 0.35) 0%, rgba(11, 7, 16, 0.15) 40%, rgba(11, 7, 16, 0.75) 100%), url('${savedCustomBg}')`;
+    }
+
+    /* ========================================================
+       2. FOLK MUSIC PLAYER
+    ======================================================== */
+    const folkPlaylist = [
+      {
+        title: "🪕 সোহাগ চাঁদ বদনী ধনি",
+        url: "https://archive.org/download/1_20220802_20220802_0813/A2%20-%20Sohag%20Chand%20Badani%20Dhani%20%28Bou-Natch%29.mp3"
+      },
+      {
+        title: "⛵ নাইয়ারে সুজন নাইয়া (ভাটিয়ালী)",
+        url: "https://archive.org/download/1_20220802_20220802_0813/B1%20-%20Naiyare%20Sujan%20Naiya%20%28Bhatiali%29.mp3"
+      },
+      {
+        title: "🕊️ আমার সোনার ময়না পাখি",
+        url: "https://archive.org/download/ecsd-2520-b/Manashi%20Paul%20-%20Amar%20Sonar%20Moina%20Pakhi.mp3"
+      },
+      {
+        title: "🪔 অন্তরে বৈরাগীর লাউ বাজে",
+        url: "https://archive.org/download/1_20220802_20220802_0813/B2%20-%20Antare%20Bairagir%20Lau%20Baje%20%28Baul%29.mp3"
+      },
+      {
+        title: "🌊 ও মোর নদীরে মোর তিস্তা",
+        url: "https://archive.org/download/1_20220802_20220802_0813/A6%20-%20O%20Mor%20Nadire%20Mor%20Tista%20%28Bhaowalya%29.mp3"
+      }
+    ];
+
+    let currentTrackIdx = 0;
+    let isFolkPlaying = false;
+
+    const folkAudio = document.getElementById('folkAudioEngine');
+    const folkPlayBtn = document.getElementById('folkPlayBtn');
+    const folkNextBtn = document.getElementById('folkNextBtn');
+    const folkTrackSelect = document.getElementById('folkTrackSelect');
+    const folkVolume = document.getElementById('folkVolume');
+    const localTrackInput = document.getElementById('localTrackInput');
+    const currentTrackTitle = document.getElementById('currentTrackTitle');
+
+    folkAudio.volume = parseFloat(folkVolume.value);
+
+    function setFolkTrack(index) {
+      if (index === 'custom') {
+        localTrackInput.click();
+        return;
+      }
+      currentTrackIdx = parseInt(index);
+      folkAudio.src = folkPlaylist[currentTrackIdx].url;
+      currentTrackTitle.textContent = folkPlaylist[currentTrackIdx].title;
+
+      folkAudio.play().then(() => {
+        isFolkPlaying = true;
+        folkPlayBtn.classList.add('playing');
+        folkPlayBtn.innerHTML = "⏸️ থামান";
+      }).catch(err => {
+        console.warn("User gesture needed for playback:", err);
+      });
+    }
+
+    folkPlayBtn.addEventListener('click', () => {
+      if (isFolkPlaying) {
+        folkAudio.pause();
+        isFolkPlaying = false;
+        folkPlayBtn.classList.remove('playing');
+        folkPlayBtn.innerHTML = "▶ চালান";
+      } else {
+        if (!folkAudio.src) {
+          setFolkTrack(folkTrackSelect.value);
+        } else {
+          folkAudio.play().then(() => {
+            isFolkPlaying = true;
+            folkPlayBtn.classList.add('playing');
+            folkPlayBtn.innerHTML = "⏸️ থামান";
+          });
+        }
+      }
+    });
+
+    folkTrackSelect.addEventListener('change', () => {
+      setFolkTrack(folkTrackSelect.value);
+    });
+
+    folkNextBtn.addEventListener('click', () => {
+      currentTrackIdx = (currentTrackIdx + 1) % folkPlaylist.length;
+      folkTrackSelect.value = currentTrackIdx.toString();
+      setFolkTrack(currentTrackIdx);
+    });
+
+    folkAudio.addEventListener('ended', () => {
+      currentTrackIdx = (currentTrackIdx + 1) % folkPlaylist.length;
+      folkTrackSelect.value = currentTrackIdx.toString();
+      setFolkTrack(currentTrackIdx);
+    });
+
+    localTrackInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        folkAudio.src = URL.createObjectURL(file);
+        currentTrackTitle.textContent = "📁 " + file.name;
+        folkAudio.play().then(() => {
+          isFolkPlaying = true;
+          folkPlayBtn.classList.add('playing');
+          folkPlayBtn.innerHTML = "⏸️ থামান";
+        });
+      }
+    });
+
+    folkVolume.addEventListener('input', (e) => {
+      folkAudio.volume = parseFloat(e.target.value);
+    });
+
+    /* ========================================================
+       3. SYNTHESIZED SOUND EFFECTS (WEB AUDIO API)
+    ======================================================== */
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let actx = null;
+    let soundEnabled = true;
+
+    function getAudioContext() {
+      if (!actx) actx = new AudioContext();
+      if (actx.state === 'suspended') actx.resume();
+      return actx;
+    }
+
+    function playSpoonClinkSFX() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(2450, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.18);
+
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.19);
+    }
+
+    function playPourChaiSFX() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      const bufferSize = ctx.sampleRate * 0.3;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.12));
+      }
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(700, ctx.currentTime);
+      filter.frequency.linearRampToValueAtTime(1400, ctx.currentTime + 0.28);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.28, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.29);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noise.start();
+    }
+
+    function playChumukSFX() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      const dur = 0.48;
+
+      const buffer = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < buffer.length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.sin(i / 14);
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1300, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(500, ctx.currentTime + dur);
+      filter.Q.setValueAtTime(4.5, ctx.currentTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.18);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + dur);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noise.start();
+    }
+
+    function playCupDoneSFX() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(130, ctx.currentTime + 0.14);
+
+      gain.gain.setValueAtTime(0.32, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.14);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+    }
+
+    function playCelebrationFanfare() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.13);
+
+        gain.gain.setValueAtTime(0.24, ctx.currentTime + idx * 0.13);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.13 + 0.42);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + idx * 0.13);
+        osc.stop(ctx.currentTime + idx * 0.13 + 0.45);
+      });
+    }
+
+    /* Monsoon Rain Ambiance */
+    let rainNode = null;
+    let rainGain = null;
+    let isRaining = false;
+    const rainLayer = document.getElementById('rainLayer');
+    const rainAmbienceBtn = document.getElementById('rainAmbienceBtn');
+
+    function toggleRainAmbiance() {
+      const ctx = getAudioContext();
+      if (!isRaining) {
+        const bufferSize = ctx.sampleRate * 2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * 0.4;
+        }
+
+        rainNode = ctx.createBufferSource();
+        rainNode.buffer = buffer;
+        rainNode.loop = true;
+
+        const rainFilter = ctx.createBiquadFilter();
+        rainFilter.type = 'lowpass';
+        rainFilter.frequency.setValueAtTime(1100, ctx.currentTime);
+
+        rainGain = ctx.createGain();
+        rainGain.gain.setValueAtTime(0.08, ctx.currentTime);
+
+        rainNode.connect(rainFilter);
+        rainFilter.connect(rainGain);
+        rainGain.connect(ctx.destination);
+        rainNode.start();
+
+        rainLayer.classList.add('active');
+        rainAmbienceBtn.classList.add('active');
+        rainAmbienceBtn.innerHTML = "🌧️ বৃষ্টি চালু";
+        isRaining = true;
+      } else {
+        if (rainGain) {
+          rainGain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+          setTimeout(() => {
+            if (rainNode) rainNode.stop();
+          }, 500);
+        }
+        rainLayer.classList.remove('active');
+        rainAmbienceBtn.classList.remove('active');
+        rainAmbienceBtn.innerHTML = "🌧️ বৃষ্টি";
+        isRaining = false;
+      }
+    }
+
+    rainAmbienceBtn.addEventListener('click', toggleRainAmbiance);
+
+    /* ========================================================
+       4. DHAKA TONG STATE & INTERACTIVE CUPS
+    ======================================================== */
+    const mamaSlangCompliments = [
+      "অস্থির মামা অস্থির! পুরো ফাটাফাটি!",
+      "আরেহ মামা, ঢাকার বুকে তোমাকেই তো লাগব!",
+      "সাবাশ মামা! পড়ালেখা এক্কেরে পানির মতো সোজা!",
+      "এক কাপ চায়ে পুরো বাজিমাত মামা!",
+      "পড়ালেখা তো মাখন মামা, খালি দুই চুমুক চা দরকার!",
+      "বিসিএস আর ঠেকায় কে? মামা চা আরেক কাপ দেবো?"
+    ];
+
+    let tasks = [];
+    let completedCount = parseInt(localStorage.getItem('dhaka_chai_completed_count') || '0');
+    let timerIntervals = {};
+
+    const cupsRack = document.getElementById('cupsRack');
+    const emptyBanner = document.getElementById('emptyBanner');
+    const remainingBadge = document.getElementById('remainingBadge');
+    const finishedBadge = document.getElementById('finishedBadge');
+    const taskNameInput = document.getElementById('taskNameInput');
+    const taskDurationSelect = document.getElementById('taskDurationSelect');
+    const cupStyleSelect = document.getElementById('cupStyleSelect');
+    const brewCupBtn = document.getElementById('brewCupBtn');
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    const clearBenchBtn = document.getElementById('clearBenchBtn');
+    const mamaModal = document.getElementById('mamaModal');
+    const mamaSpeechText = document.getElementById('mamaSpeechText');
+    const newRoundBtn = document.getElementById('newRoundBtn');
+
+    function toBengaliNum(num) {
+      const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return num.toString().split('').map(d => bnDigits[d] || d).join('');
+    }
+
+    function syncState() {
+      remainingBadge.textContent = toBengaliNum(tasks.length);
+      finishedBadge.textContent = toBengaliNum(completedCount);
+      emptyBanner.style.display = tasks.length === 0 ? 'flex' : 'none';
+      localStorage.setItem('dhaka_study_tasks_v2', JSON.stringify(tasks));
+      localStorage.setItem('dhaka_chai_completed_count', completedCount.toString());
+    }
+
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.innerHTML = soundEnabled ? '🔊 সাউন্ড' : '🔇 বন্ধ';
+      soundToggleBtn.style.color = soundEnabled ? '#ffe6cf' : '#ff8585';
+    });
+
+    clearBenchBtn.addEventListener('click', () => {
+      if (tasks.length === 0) return;
+      if (confirm("মামা, বেঞ্চের সব কাপ চা কি ফেলে দিতে চান?")) {
+        Object.values(timerIntervals).forEach(clearInterval);
+        timerIntervals = {};
+        tasks = [];
+        cupsRack.innerHTML = '';
+        syncState();
+      }
+    });
+
+    function renderCupElement(task) {
+      const cupWrap = document.createElement('div');
+      cupWrap.className = 'cup-card';
+      cupWrap.id = `cup-${task.id}`;
+
+      const isClay = task.type === 'clay';
+
+      cupWrap.innerHTML = `
+        <div class="task-tea-tag">
+          <button class="tag-delete-btn" title="মুছে ফেলুন" aria-label="মুছে ফেলুন">✕</button>
+          <span>${task.name}</span>
+          <div class="task-timer-countdown" id="timer-display-${task.id}">
+            ⏱️ <span>${toBengaliNum(task.minutesRemaining)} মি.</span>
+          </div>
+        </div>
+
+        <div class="steam-container">
+          <div class="steam-puff"></div>
+          <div class="steam-puff"></div>
+          <div class="steam-puff"></div>
+        </div>
+
+        <div class="${isClay ? 'matir-bhar-cup' : 'cutting-chai-glass'}" title="চুমুক দিতে ক্লিক করুন">
+          <div class="tea-fluid">
+            <div class="tea-froth"></div>
+          </div>
+        </div>
+
+        <div class="cup-action-triggers">
+          <button class="cup-action-btn btn-timer-toggle" id="btn-timer-${task.id}">
+            ${task.timerRunning ? '⏸️ পজ' : '▶ টাইমার'}
+          </button>
+          <button class="cup-action-btn btn-finish-sip">
+            ☕ চুমুক
+          </button>
+        </div>
+      `;
+
+      // Event: Delete Single Cup
+      const deleteBtn = cupWrap.querySelector('.tag-delete-btn');
+      deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        discardSingleCup(task.id, cupWrap);
+      });
+
+      // Event: Click on cup body to sip
+      const cupBody = cupWrap.querySelector(isClay ? '.matir-bhar-cup' : '.cutting-chai-glass');
+      cupBody.addEventListener('click', () => {
+        finishCupTask(task.id, cupWrap);
+      });
+
+      // Event: Instant Sip button
+      const finishSipBtn = cupWrap.querySelector('.btn-finish-sip');
+      finishSipBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        finishCupTask(task.id, cupWrap);
+      });
+
+      // Event: Toggle study countdown timer
+      const timerBtn = cupWrap.querySelector('.btn-timer-toggle');
+      timerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleTaskTimer(task.id, cupWrap);
+      });
+
+      return cupWrap;
+    }
+
+    function toggleTaskTimer(id, cupWrap) {
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+
+      const timerBtn = cupWrap.querySelector(`#btn-timer-${id}`);
+      const timerDisplay = cupWrap.querySelector(`#timer-display-${id}`);
+
+      playSpoonClinkSFX();
+
+      if (task.timerRunning) {
+        clearInterval(timerIntervals[id]);
+        task.timerRunning = false;
+        timerBtn.textContent = '▶ টাইমার';
+        timerDisplay.classList.remove('ticking');
+      } else {
+        task.timerRunning = true;
+        timerBtn.textContent = '⏸️ পজ';
+        timerDisplay.classList.add('ticking');
+
+        timerIntervals[id] = setInterval(() => {
+          if (task.secondsRemaining > 0) {
+            task.secondsRemaining--;
+            task.minutesRemaining = Math.ceil(task.secondsRemaining / 60);
+            
+            const mins = Math.floor(task.secondsRemaining / 60);
+            const secs = task.secondsRemaining % 60;
+            const formatted = `${toBengaliNum(mins)}:${toBengaliNum(secs < 10 ? '0' + secs : secs)}`;
+            timerDisplay.innerHTML = `🔥 <span>${formatted}</span>`;
+          } else {
+            clearInterval(timerIntervals[id]);
+            finishCupTask(id, cupWrap);
+          }
+        }, 1000);
+      }
+    }
+
+    function discardSingleCup(id, element) {
+      if (element.classList.contains('discarding')) return;
+      if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+
+      element.classList.add('discarding');
+      playSpoonClinkSFX();
+
+      setTimeout(() => {
+        tasks = tasks.filter(t => t.id !== id);
+        element.remove();
+        syncState();
+      }, 250);
+    }
+
+    function finishCupTask(id, element) {
+      if (element.classList.contains('drinking') || element.classList.contains('popping')) return;
+      if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+
+      element.classList.add('drinking');
+      playChumukSFX();
+
+      setTimeout(() => {
+        element.classList.add('popping');
+        playCupDoneSFX();
+
+        const rect = element.getBoundingClientRect();
+        triggerChaiSplash(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+        setTimeout(() => {
+          tasks = tasks.filter(t => t.id !== id);
+          completedCount++;
+          element.remove();
+          syncState();
+
+          if (tasks.length === 0) {
+            triggerMamaCelebrationModal();
+          }
+        }, 380);
+      }, 620);
+    }
+
+    function triggerChaiSplash(originX, originY) {
+      for (let i = 0; i < 9; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'chai-splash-particle';
+        drop.style.left = `${originX}px`;
+        drop.style.top = `${originY}px`;
+        document.body.appendChild(drop);
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 6 + 3;
+        let x = originX;
+        let y = originY;
+        let vx = Math.cos(angle) * velocity;
+        let vy = Math.sin(angle) * velocity - 2.5;
+        let alpha = 1;
+
+        const loop = setInterval(() => {
+          x += vx;
+          y += vy;
+          vy += 0.38;
+          alpha -= 0.05;
+
+          drop.style.left = `${x}px`;
+          drop.style.top = `${y}px`;
+          drop.style.opacity = alpha;
+
+          if (alpha <= 0) {
+            clearInterval(loop);
+            drop.remove();
+          }
+        }, 20);
+      }
+    }
+
+    function brewNewCup() {
+      const name = taskNameInput.value.trim();
+      if (!name) {
+        taskNameInput.focus();
+        return;
+      }
+
+      const durationMinutes = parseInt(taskDurationSelect.value);
+
+      const newTask = {
+        id: Date.now(),
+        name: name,
+        duration: durationMinutes,
+        minutesRemaining: durationMinutes,
+        secondsRemaining: durationMinutes * 60,
+        type: cupStyleSelect.value,
+        timerRunning: false
+      };
+
+      tasks.push(newTask);
+      const cupElem = renderCupElement(newTask);
+      cupsRack.appendChild(cupElem);
+
+      playPourChaiSFX();
+      syncState();
+
+      cupElem.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+
+      taskNameInput.value = '';
+      taskNameInput.focus();
+    }
+
+    brewCupBtn.addEventListener('click', brewNewCup);
+    taskNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') brewNewCup();
+    });
+
+    function triggerMamaCelebrationModal() {
+      const phrase = mamaSlangCompliments[Math.floor(Math.random() * mamaSlangCompliments.length)];
+      mamaSpeechText.textContent = `"${phrase}"`;
+
+      playCelebrationFanfare();
+
+      setTimeout(() => {
+        mamaModal.classList.add('active');
+      }, 400);
+    }
+
+    newRoundBtn.addEventListener('click', () => {
+      mamaModal.classList.remove('active');
+      loadDefaultStudyRoutine();
+    });
+
+    function loadDefaultStudyRoutine() {
+      cupsRack.innerHTML = '';
+      tasks = [
+        { id: 1, name: "বাংলা ১ম পত্র ব্যাকরণ", duration: 25, minutesRemaining: 25, secondsRemaining: 1500, type: "glass", timerRunning: false },
+        { id: 2, name: "গণিত প্র্যাকটিস অধ্যায় ৩", duration: 45, minutesRemaining: 45, secondsRemaining: 2700, type: "clay", timerRunning: false },
+        { id: 3, name: "ইংরেজি ভোকাবুলারি রিভিশন", duration: 25, minutesRemaining: 25, secondsRemaining: 1500, type: "glass", timerRunning: false }
+      ];
+
+      tasks.forEach(t => {
+        cupsRack.appendChild(renderCupElement(t));
+      });
+      syncState();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('dhaka_study_tasks_v2');
+      if (stored && JSON.parse(stored).length > 0) {
+        tasks = JSON.parse(stored);
+        tasks.forEach(t => cupsRack.appendChild(renderCupElement(t)));
+        syncState();
+      } else {
+        loadDefaultStudyRoutine();
+      }
+    });
+  </script>
+</body>
+</html>
